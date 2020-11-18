@@ -1,0 +1,49 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-3" id="con">
+        </div>
+    </div>
+    <script>
+        fetch("./ezquiz.json").then(rawData => rawData.json()).then(data => {
+            console.log(data)
+            for (let i = 0; i < data.tracks.items.length; i++) {
+                let box = document.createElement("div")
+                let col = document.createElement("div")
+                let pic = document.createElement("img")
+                col.setAttribute("class", "col-md-4 mt-3")
+                pic.setAttribute('class', "card-img-top");
+                pic.setAttribute("src", data.tracks.items[i].album.images[0].url)
+                box.setAttribute("style", "card border-1")
+                let htext = document.createElement("p");
+                let text1 = document.createElement("p");
+                let text2 = document.createElement("p");
+                let text3 = document.createElement("p");
+                htext.appendChild(document.createTextNode(data.tracks.items[i].album.name))
+                text1.appendChild(document.createTextNode("Artist: " + data.tracks.items[i].album.name))
+                text2.appendChild(document.createTextNode("Release date: " + data.tracks.items[i].album.release_date))
+                text3.appendChild(document.createTextNode("Avaliable: " + data.tracks.items[i].album.available_markets.length))
+                box.appendChild(pic)
+                box.appendChild(htext)
+                box.appendChild(text1)
+                box.appendChild(text2)
+                box.appendChild(text3)
+                col.appendChild(box)
+                document.getElementById("con").appendChild(col)
+            }
+        })
+    </script>
+</body>
+
+</html>
